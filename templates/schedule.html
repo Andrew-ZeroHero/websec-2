@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Schedule {{title}}</title>
+    <link rel="stylesheet" href="{{url_for('media', filename='styles.css')}}">
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-primary justify-content-between fw-bold">
+      <a class="navbar-brand p-2"> Расписание <br />
+        <script type="text/javascript">
+          funnyFunction = function () {
+            var quotes = new Array();
+            quotes[0] = "Добро пожаловать. Снова.";
+            quotes[1] = "Когда отчисляемся?";
+            quotes[2] = "Ещё не отчислили?";
+            quotes[3] = "Может... Прогулять пары?";
+            quotes[4] = "Сессия близко...";
+            quotes[5] = "ПРОГРЕСС НЕВОЗМОЖЕН БЕЗ [REDACTED]!!!";
+            var rand = Math.floor(Math.random()*quotes.length);
+            document.write(quotes[rand]);
+          }
+          funnyFunction();
+        </script>
+      </a>
+      <form action="/search" class="form-inline">
+        <div class="row">
+          <div class="col-8">
+            <input class="form-control" type="search" placeholder="Поиск..." name="searchText">
+          </div>
+          <div class="col-4">
+            <button class="btn btn-outline-success" type="submit"> 🔍 </button>
+          </div>
+        </div>
+      </form>
+    </nav>
+    <div class="list-group">
+      <a href="/faculties" class="list-group-item active list-group-item-action btn fw-bold" style="background-color: #2196f3;"> Вернуться на главную </a>
+    </div>
+    <table class="table table-borderless">
+      <tr>
+        <td align="left" scope="col">
+          <a href="/schedule/groups?groupId={{groupId}}&week={{weeks[0]}}" class="link-primary">
+            {{weeks[0]}} неделя </a>
+        </td>
+        <td align="center" scope="col">
+          {{weeks[1]}} неделя
+        </td>
+        <td align="right" scope="col">
+          <a href="/schedule/groups?groupId={{groupId}}&week={{weeks[2]}}" class="link-primary">
+            {{weeks[2]}} неделя </a>
+        </td>
+      </tr>
+    </table>
+    <table class="table table-bordered resizable">
+      <thead align="center">
+        <tr>
+          <th scope="col"> Время </th>
+          <th scope="col"> Понедельник <p>
+              {{dates[0]}}
+            </p>
+          </th>
+          <th scope="col"> Вторник <p>
+              {{dates[1]}}
+            </p>
+          </th>
+          <th scope="col"> Среда <p>
+              {{dates[2]}}
+            </p>
+          </th>
+          <th scope="col"> Четверг <p>
+              {{dates[3]}}
+            </p>
+          </th>
+          <th scope="col"> Пятница <p align="center">
+              {{dates[4]}}
+            </p>
+          </th>
+          <th scope="col"> Суббота <p align="center">
+              {{dates[5]}}
+            </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody> {% for row in rows %} <tr>
+          <th scope="row">
+            <p align="center">
+              <br>
+              {{row['timespan'][0]}}
+              <br>
+              {{row['timespan'][1]}}
+              <br>
+            </p>
+          </th>
+          <td> {% for lesson in row['items'][0]['lessons'] %} <br>
+            {{lesson['title']}}
+            <br>
+            {{lesson['place']}}
+            <br>
+            <a href="/schedule/staff{{lesson['staffid']}}">
+              {{lesson['staff']}}
+            </a>
+            <br> {% endfor %}
+          </td>
+          <td> {% for lesson in row['items'][1]['lessons'] %} <br>
+            {{lesson['title']}}
+            <br>
+            {{lesson['place']}}
+            <br>
+            <a href="/schedule/staff{{lesson['staffid']}}">
+              {{lesson['staff']}}
+            </a>
+            <br> {% endfor %}
+          </td>
+          <td> {% for lesson in row['items'][2]['lessons'] %} <br>
+            {{lesson['title']}}
+            <br>
+            {{lesson['place']}}
+            <br>
+            <a href="/schedule/staff{{lesson['staffid']}}">
+              {{lesson['staff']}}
+            </a>
+            <br> {% endfor %}
+          </td>
+          <td> {% for lesson in row['items'][3]['lessons'] %} <br>
+            {{lesson['title']}}
+            <br>
+            {{lesson['place']}}
+            <br>
+            <a href="/schedule/staff{{lesson['staffid']}}">
+              {{lesson['staff']}}
+            </a>
+            <br> {% endfor %}
+          </td>
+          <td> {% for lesson in row['items'][4]['lessons'] %} <br>
+            {{lesson['title']}}
+            <br>
+            {{lesson['place']}}
+            <br>
+            <a href="/schedule/staff{{lesson['staffid']}}">
+              {{lesson['staff']}}
+            </a>
+            <br> {% endfor %}
+          </td>
+          <td> {% for lesson in row['items'][5]['lessons'] %} <br>
+            {{lesson['title']}}
+            <br>
+            {{lesson['place']}}
+            <br>
+            <a href="/schedule/staff{{lesson['staffid']}}">
+              {{lesson['staff']}}
+            </a>
+            <br> {% endfor %}
+          </td>
+        </tr> {% endfor %} </tbody>
+    </table>
+  </body>
+</html>
