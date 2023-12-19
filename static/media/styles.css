@@ -1,0 +1,5 @@
+@media (width <= 700px) {
+    .resizable {
+        font-size: x-small;
+    }
+}
